@@ -1,0 +1,24 @@
+.DS_Store
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+dist-ssr/
+.vite/
+**/.vite/
+
+# Environment and Secret Files
+.env
+.env.*
+.env*.local
+*.local
+**/.env
+**/.env.*
+**/.env*.local
+
+# Allow example templates
+!.env.example
+!**/.env.example
+
+# Claude / IDE local settings
+.claude/settings.local.json
