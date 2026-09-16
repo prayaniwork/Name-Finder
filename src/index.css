@@ -1,0 +1,397 @@
+/* ==========================================================================
+   NameFinder · Bento Studio Design System (Reference-Matched)
+   ========================================================================== */
+
+:root {
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Architectural Canvas */
+  --bg-canvas: #f1f2f5;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #f8f9fa;
+  
+  /* High-Contrast Bento Accents (From Reference Images) */
+  --color-matte-black: #111215;
+  --color-neon-lime: #ccff00;
+  --color-luminous-lilac: #b175ff;
+  --color-electric-violet: #8b5cf6;
+  --color-warm-cream: #faf7f2;
+  --color-soft-slate: #e2e8f0;
+
+  /* Text Colors */
+  --text-black: #111215;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --text-white: #ffffff;
+
+  /* Borders & Shadows */
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --shadow-bento: 0 16px 36px -6px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 24px 48px -8px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.04);
+  --shadow-glow-lilac: 0 0 24px rgba(177, 117, 255, 0.45);
+  --shadow-glow-lime: 0 0 24px rgba(204, 255, 0, 0.4);
+
+  /* Radii */
+  --radius-bento: 26px;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-canvas);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle Dot-Matrix Canvas Texture */
+body {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.3) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+/* Ambient Floating Background Spheres */
+body::before {
+  content: '';
+  position: fixed;
+  top: -100px;
+  right: -50px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(226, 232, 240, 0.4) 60%, transparent 100%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  left: -80px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(204, 255, 0, 0.08) 0%, rgba(177, 117, 255, 0.08) 50%, transparent 80%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-black);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Bento Tile Utilities */
+.bento-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-bento);
+  box-shadow: var(--shadow-bento);
+  transition: all 0.28s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+/* Black Bento Hero Tile (Ref Image 1) */
+.bento-black {
+  background: var(--color-matte-black);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bento-black h1, .bento-black h2, .bento-black h3 {
+  color: #ffffff;
+}
+
+/* Neon Lime Bento Tile (Ref Image 1) */
+.bento-lime {
+  background: var(--color-neon-lime);
+  color: #111215;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+.bento-lime h1, .bento-lime h2, .bento-lime h3 {
+  color: #111215;
+}
+
+/* Luminous Lilac Bento Tile (Ref Image 1 & 3) */
+.bento-lilac {
+  background: var(--color-luminous-lilac);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.bento-lilac h1, .bento-lilac h2, .bento-lilac h3 {
+  color: #ffffff;
+}
+
+/* Glowing Luminous Pill (Directly from Ref Image 3) */
+.glowing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: #111215;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: '0.08em';
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 22px rgba(177, 117, 255, 0.5), 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  user-select: none;
+}
+
+.glowing-pill:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 28px rgba(177, 117, 255, 0.7), 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.22s var(--ease-spring);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-black {
+  background: var(--color-matte-black);
+  color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.btn-black:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #23252b;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-lime {
+  background: var(--color-neon-lime);
+  color: #111215;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(204, 255, 0, 0.35);
+}
+
+.btn-lime:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(204, 255, 0, 0.5);
+  filter: brightness(1.05);
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: var(--text-black);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-outline:hover {
+  background: var(--bg-surface-alt);
+  border-color: var(--text-black);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+}
+
+.btn-ghost:hover {
+  color: var(--text-black);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Pill Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.18s var(--ease-spring);
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.chip.active {
+  background: var(--color-matte-black);
+  color: #ffffff;
+  border-color: var(--color-matte-black);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Domain Status Badges */
+.domain-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.domain-pill.available {
+  background: rgba(204, 255, 0, 0.25);
+  border: 1px solid #a3e635;
+  color: #1a7f37;
+}
+
+.domain-pill.taken {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.domain-pill.checking {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #b45309;
+}
+
+/* Brand Monogram Avatar */
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 19px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Modal Backdrops & Drawers */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 18, 21, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 18, 21, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 50;
+}
+
+.drawer-content {
+  width: 100%;
+  max-width: 460px;
+  height: 100%;
+  background: #ffffff;
+  border-left: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s var(--ease-spring) forwards;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
