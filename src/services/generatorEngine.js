@@ -1,31 +1,31 @@
 /**
- * NameFinder Generative Brand Engine
- * Category-aware linguistic synthesis with rich archetypes.
+ * NameFinder Generative Brand Engine (Stage 2 Enhanced)
+ * Multi-paradigm, category-aware offline linguistic synthesis.
  */
 
 const CATEGORY_VOCAB = {
   saas: {
-    roots: ['nexus', 'pulse', 'flux', 'syn', 'byte', 'core', 'omni', 'hyper', 'orbit', 'zenith', 'vector', 'axon', 'vertex', 'strata', 'arc', 'grid', 'prism', 'relay', 'cipher', 'loom'],
-    compounds: ['Scale', 'Cloud', 'Data', 'Stack', 'Shift', 'Flow', 'Craft', 'Bridge', 'Vault', 'Pilot'],
-    suffixes: ['ly', 'io', 'a', 'ix', 'ex', 'ify', 'ium', 'ent', 'ive', 'ic'],
+    roots: ['nexus', 'pulse', 'flux', 'syn', 'byte', 'core', 'omni', 'hyper', 'orbit', 'zenith', 'vector', 'axon', 'vertex', 'strata', 'arc', 'grid', 'prism', 'relay', 'cipher', 'loom', 'stack', 'flow', 'apex', 'vibe', 'kivo'],
+    compounds: ['Scale', 'Cloud', 'Data', 'Stack', 'Shift', 'Flow', 'Craft', 'Bridge', 'Vault', 'Pilot', 'Forge', 'Trace', 'Line', 'Base'],
+    suffixes: ['ly', 'io', 'a', 'ix', 'ex', 'ify', 'ium', 'ent', 'ive', 'ic', 'is', 'ora'],
     archetypes: ['Modern Tech', 'Compound', 'Neologism', 'Minimal']
   },
   newsletter: {
-    roots: ['chronicle', 'dispatch', 'signal', 'verge', 'horizon', 'insight', 'pulse', 'scope', 'thread', 'folio', 'memo', 'digest', 'brief', 'spark', 'beacon', 'atlas', 'lens', 'current', 'echo', 'thesis'],
-    compounds: ['Daily', 'Weekly', 'Wire', 'Post', 'Letter', 'Review', 'Paper', 'Journal', 'Desk', 'Cast'],
-    suffixes: ['ist', 'er', 'al', 'on', 'um', 'ia', 'us', 'o'],
+    roots: ['chronicle', 'dispatch', 'signal', 'verge', 'horizon', 'insight', 'pulse', 'scope', 'thread', 'folio', 'memo', 'digest', 'brief', 'spark', 'beacon', 'atlas', 'lens', 'current', 'echo', 'thesis', 'margin', 'index', 'incline'],
+    compounds: ['Daily', 'Weekly', 'Wire', 'Post', 'Letter', 'Review', 'Paper', 'Journal', 'Desk', 'Cast', 'Notes', 'Report', 'Digest'],
+    suffixes: ['ist', 'er', 'al', 'on', 'um', 'ia', 'us', 'o', 'ix'],
     archetypes: ['Editorial', 'Compound', 'Prestige', 'Minimal']
   },
   consumer: {
-    roots: ['amber', 'bloom', 'clay', 'drift', 'ember', 'flora', 'grove', 'haven', 'juniper', 'kindred', 'linen', 'meadow', 'nord', 'onyx', 'pine', 'quill', 'rust', 'stone', 'terra', 'vale'],
-    compounds: ['Co', 'Studio', 'Goods', 'Craft', 'Botanicals', 'Supply', 'Works', 'Lab', 'House', 'Collective'],
-    suffixes: ['a', 'o', 'an', 'is', 'en', 'ic', 'elle', 'or'],
+    roots: ['amber', 'bloom', 'clay', 'drift', 'ember', 'flora', 'grove', 'haven', 'juniper', 'kindred', 'linen', 'meadow', 'nord', 'onyx', 'pine', 'quill', 'rust', 'stone', 'terra', 'vale', 'solis', 'moss', 'cedar', 'hearth'],
+    compounds: ['Co', 'Studio', 'Goods', 'Craft', 'Botanicals', 'Supply', 'Works', 'Lab', 'House', 'Collective', 'Provisions', 'Foundry'],
+    suffixes: ['a', 'o', 'an', 'is', 'en', 'ic', 'elle', 'or', 'ae'],
     archetypes: ['Tactile & Organic', 'Prestige', 'Compound', 'Minimal']
   },
   podcast: {
-    roots: ['wave', 'talk', 'mic', 'frequency', 'resonance', 'vox', 'echo', 'unfiltered', 'candid', 'air', 'dialogue', 'broadcast', 'spectrum', 'audio', 'sonic', 'reverb', 'spark', 'deep', 'sound', 'hertz'],
-    compounds: ['Cast', 'Show', 'Hours', 'Session', 'Tapes', 'Lab', 'Room', 'Radio', 'Files', 'Space'],
-    suffixes: ['ic', 'cast', 'fm', 'al', 'er', 'o'],
+    roots: ['wave', 'talk', 'mic', 'frequency', 'resonance', 'vox', 'echo', 'unfiltered', 'candid', 'air', 'dialogue', 'broadcast', 'spectrum', 'audio', 'sonic', 'reverb', 'spark', 'deep', 'sound', 'hertz', 'mono', 'chime', 'vocal'],
+    compounds: ['Cast', 'Show', 'Hours', 'Session', 'Tapes', 'Lab', 'Room', 'Radio', 'Files', 'Space', 'Hour', 'Confidential', 'Discourse'],
+    suffixes: ['ic', 'cast', 'fm', 'al', 'er', 'o', 'ia'],
     archetypes: ['Punchy & Conversational', 'Compound', 'Modern Tech', 'Minimal']
   }
 };
@@ -50,18 +50,20 @@ function countSyllables(word) {
   return matches ? Math.max(1, matches.length) : 1;
 }
 
-function generateRationale(name, category, archetype) {
+function generateRationale(name, category, archetype, steerModifier) {
   const cat = category || 'saas';
+  const nudge = steerModifier ? ` Aligned with direction: "${steerModifier}".` : '';
+
   if (cat === 'newsletter') {
-    return `Editorial gravitas and curiosity; builds immediate credibility and looks striking in an email inbox masthead.`;
+    return `Editorial authority and intellectual curiosity; sounds established from day one and looks striking in an email inbox masthead.${nudge}`;
   }
   if (cat === 'consumer') {
-    return `Sensory, tactile resonance with organic depth; balances boutique warmth with premium packaging appeal.`;
+    return `Sensory, tactile resonance with organic depth; balances boutique warmth with premium packaging appeal.${nudge}`;
   }
   if (cat === 'podcast') {
-    return `Punchy audio cadence and conversational rhythm; sticks in spoken intros and directory cover art.`;
+    return `Punchy audio cadence and conversational rhythm; sticks in spoken intros and directory cover art.${nudge}`;
   }
-  return `Engineered for high cognitive recall and trademark defensibility; communicates agile modern execution.`;
+  return `Engineered for high cognitive recall and trademark defensibility; communicates agile modern execution.${nudge}`;
 }
 
 export function generateNames(brief = {}) {
@@ -70,7 +72,8 @@ export function generateNames(brief = {}) {
     category = 'saas',
     archetype = 'All Styles',
     keywords = '',
-    preferredTld = 'com'
+    preferredTld = 'com',
+    steerModifier = ''
   } = brief;
 
   const catData = CATEGORY_VOCAB[category] || CATEGORY_VOCAB.saas;
@@ -108,9 +111,9 @@ export function generateNames(brief = {}) {
       fitScore,
       monogram,
       bgGradient,
-      cardStyle, // 'black', 'lime', 'lilac', 'white'
+      cardStyle,
       pronounceEase: syllables <= 2 ? 'Seamless' : 'Natural',
-      rationale: generateRationale(cleanName, category, itemArchetype),
+      rationale: generateRationale(cleanName, category, itemArchetype, steerModifier),
       domains: {
         com: { status: 'checking', tld: '.com' },
         ai: { status: (hash % 4 !== 0) ? 'available' : 'taken', tld: '.ai' },
@@ -123,9 +126,9 @@ export function generateNames(brief = {}) {
   // 1. Seed-based names
   if (seed) {
     addCandidate(`${seed}craft`, 'Compound', 'Artisan Craft', 'black');
-    addCandidate(`${seed}ly`, 'Neologism', 'Modern', 'lilac');
-    addCandidate(`${seed}pulse`, 'Modern Tech', 'Velocity', 'lime');
-    addCandidate(`Omni${seed}`, 'Prestige', 'Global Reach');
+    addCandidate(`${seed}ly`, 'Neologism', 'Modern Flow', 'lilac');
+    addCandidate(`${seed}pulse`, 'Modern Tech', 'High Velocity', 'lime');
+    addCandidate(`Omni${seed}`, 'Prestige', 'Global Authority');
     addCandidate(`${seed}ora`, 'Minimal', 'Fluent Nordic');
     if (secondarySeed) {
       addCandidate(`${seed}${secondarySeed}`, 'Compound', 'Direct');

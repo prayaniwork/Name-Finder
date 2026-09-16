@@ -209,7 +209,7 @@ export default function App() {
           <BriefStudio
             brief={brief}
             onChangeBrief={setBrief}
-            onGenerate={() => handleGenerate(brief)}
+            onGenerate={(customBrief) => handleGenerate(customBrief || brief)}
             isLoading={isLoading}
           />
 

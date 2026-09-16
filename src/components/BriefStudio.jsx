@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, RefreshCw, Compass, ArrowUpRight } from 'lucide-react';
+import { Sparkles, RefreshCw, Compass, SlidersHorizontal, Wand2 } from 'lucide-react';
 
 const CATEGORIES = [
   { id: 'saas', label: 'SaaS & Tools', icon: '⚡', placeholder: 'e.g. AI-powered financial copilot for independent contractor teams...' },
@@ -24,6 +24,14 @@ const ARCHETYPES = [
   'Prestige'
 ];
 
+const STEER_CHIPS = [
+  '+ Punchy (1-2 syllables)',
+  '+ Modern Invented',
+  '+ Luxury Heritage',
+  '+ Raw Compound',
+  '+ Nordic Minimal'
+];
+
 export default function BriefStudio({
   brief,
   onChangeBrief,
@@ -32,9 +40,16 @@ export default function BriefStudio({
 }) {
   const activeCategory = CATEGORIES.find(c => c.id === brief.category) || CATEGORIES[0];
 
+  const handleSteerClick = (steer) => {
+    const nextSteer = brief.steerModifier === steer ? '' : steer;
+    const updated = { ...brief, steerModifier: nextSteer };
+    onChangeBrief(updated);
+    onGenerate(updated);
+  };
+
   return (
     <section style={{ marginBottom: '40px' }}>
-      {/* Editorial Hero Statement (Directly from Ref Image 4 & 3) */}
+      {/* Editorial Hero Statement (Ref Image 4 & 3) */}
       <div style={{ textAlign: 'center', marginBottom: '28px' }}>
         <h2 className="font-serif" style={{
           fontSize: '36px',
@@ -51,7 +66,7 @@ export default function BriefStudio({
         </p>
       </div>
 
-      {/* Luminous Glowing Category Selector (Directly from Ref Image 3!) */}
+      {/* Luminous Glowing Category Selector (Ref Image 3) */}
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -64,7 +79,7 @@ export default function BriefStudio({
           return (
             <button
               key={cat.id}
-              onClick={() => onChangeBrief({ ...brief, category: cat.id, concept: '' })}
+              onClick={() => onChangeBrief({ ...brief, category: cat.id, concept: '', steerModifier: '' })}
               className="glowing-pill"
               style={{
                 background: isActive ? 'var(--color-matte-black)' : '#ffffff',
@@ -88,7 +103,7 @@ export default function BriefStudio({
         <div style={{ marginBottom: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-              Concept Description
+              Project Essence
             </span>
             <span style={{ fontSize: '11px', color: 'var(--text-faint)', fontFamily: 'var(--font-mono)' }}>
               {brief.concept.length}/140 chars
@@ -116,9 +131,9 @@ export default function BriefStudio({
               onKeyDown={(e) => { if (e.key === 'Enter') onGenerate(); }}
             />
 
-            {/* Neon Lime CTA Button (Ref Image 1: High Visibility) */}
+            {/* Neon Lime CTA Button (Ref Image 1) */}
             <button
-              onClick={onGenerate}
+              onClick={() => onGenerate()}
               disabled={isLoading}
               className="btn btn-lime"
               style={{
@@ -133,7 +148,7 @@ export default function BriefStudio({
               {isLoading ? (
                 <>
                   <RefreshCw className="animate-spin" style={{ width: '13px', height: '13px' }} />
-                  <span>Generating…</span>
+                  <span>Synthesizing…</span>
                 </>
               ) : (
                 <>
@@ -152,7 +167,11 @@ export default function BriefStudio({
             {INSPIRATIONS[brief.category]?.map((insp, idx) => (
               <button
                 key={idx}
-                onClick={() => onChangeBrief({ ...brief, concept: insp })}
+                onClick={() => {
+                  const updated = { ...brief, concept: insp };
+                  onChangeBrief(updated);
+                  onGenerate(updated);
+                }}
                 style={{
                   background: '#f1f3f5',
                   border: '1px solid var(--border-subtle)',
@@ -168,6 +187,41 @@ export default function BriefStudio({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Creative Direction Steer Chips (Stage 2 Feature) */}
+        <div style={{
+          marginBottom: '16px',
+          padding: '12px 16px',
+          background: '#f8f9fa',
+          borderRadius: '16px',
+          border: '1px solid var(--border-subtle)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          flexWrap: 'wrap'
+        }}>
+          <span style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-black)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Wand2 style={{ width: '13px', height: '13px', color: 'var(--color-luminous-lilac)' }} /> Steer Batch:
+          </span>
+          {STEER_CHIPS.map(steer => {
+            const isSelected = brief.steerModifier === steer;
+            return (
+              <button
+                key={steer}
+                onClick={() => handleSteerClick(steer)}
+                className={`chip ${isSelected ? 'active' : ''}`}
+                style={{
+                  fontSize: '11px',
+                  padding: '4px 10px',
+                  background: isSelected ? 'var(--color-matte-black)' : '#ffffff',
+                  color: isSelected ? 'var(--color-neon-lime)' : 'var(--text-dark)'
+                }}
+              >
+                {steer}
+              </button>
+            );
+          })}
         </div>
 
         {/* Secondary Filters Bar */}
@@ -200,7 +254,7 @@ export default function BriefStudio({
             })}
           </div>
 
-          {/* Seed Keywords */}
+          {/* Seed Word */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
               Seed Word:
