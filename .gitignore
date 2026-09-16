@@ -25,6 +25,8 @@ dist-ssr/
 **/.env
 **/.env.*
 **/.env*.local
+.agents/mcp_config.json
+**/.agents/mcp_config.json
 
 # Allow example templates
 !.env.example
